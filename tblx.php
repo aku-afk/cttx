@@ -69,7 +69,8 @@ echo "</pre>";
                 ?>
                 <script>console.log('<?= $getdata ?>')</script>
                 <tr id="<?= $id ?>" class="bg-success" style="--bs-bg-opacity: 45%;">
-                <form action="" method="POST">
+                <form id="editdata" action="#" method="POST">
+                  <input type="hidden" name="tparval" value="<>">
                   <th scope="row">
                     <input type="date" class="form-control" name="tgl" value="<?= $getdata['tgl'] ?>" placeholder="TANGGAL" required>
                   </th>
@@ -183,6 +184,17 @@ echo "</pre>";
                     [10, 25, 50, 100, 500, 1000, "All"]
                 ],
                 iDisplayLength: 10
+            });
+        });
+
+        $(function() {
+            $('form#editdata').on('submit', function(e) {
+                $.post('./api/update.php', $(this).serialize(), function (data) {
+                  console.log('edited kah?');
+                }).error(function() {
+                    console.log('error cok');
+                });
+                e.preventDefault();
             });
         });
     </script>
