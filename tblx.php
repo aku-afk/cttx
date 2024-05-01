@@ -31,6 +31,9 @@ echo "</pre>";
              <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">CATET PETRIK</a>
              </li>
+             <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">DIAGRAM ASAL</a>
+             </li>
             </ul>
         </div>
 
