@@ -1,0 +1,30 @@
+.metu {
+    width: 5%;
+    margin-left: 40%;
+}
+
+div[role=alert] {
+    width: 100%;
+    /*
+    min-width: 450px;
+    max-width: 550px;
+    */
+}
+
+#empty,
+#update,
+#add,
+#deleted {
+    display: none;
+}
+
+#empty:target,
+#update:target,
+#add:target,
+#deleted:target {
+    display: block;
+}
+
+.martulisan {
+    margin-left: 3%;
+}
