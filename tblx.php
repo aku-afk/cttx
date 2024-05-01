@@ -132,6 +132,7 @@ echo "</pre>";
             </table>
         </div>
 
+        <!-- ADD DATA -->
         <div class="modal fade" id="new" tabindex="-1" aria-labelledby="new" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -168,6 +169,8 @@ echo "</pre>";
             </div>
           </div>
         </div>
+        <!-- EOL ADD DATA -->
+        
 
     </div>
     <script src="./asets/js/bootstrap.bundle.min.js"></script>
