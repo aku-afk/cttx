@@ -7,7 +7,7 @@ $datalist = json_decode(getFapi('http://localhost/cttx/api/vdat.php?mod=RAW_PRIN
 
 /*
 echo "<pre>";
-print_r($datalist);
+print_r($getdata[1]);
 echo "</pre>";
 */
 
@@ -54,22 +54,36 @@ echo "</pre>";
               </thead>
               <tbody>
                 <!-- EDIT -->
-                <tr id="<?= $id; ?>" class="bg-success" style="--bs-bg-opacity: 45%;">
+                <?php
+                if (isset($_POST['edit'])) {
+                  $id = $_POST['idb'];
+                  // SELECT * FROM `trfx_backup`WHERE `timestamp` = '2024-04-26 23:02:22';
+                  $getdata = json_decode(getFapi('http://localhost/cttx/api/select.php?tpar=timestamp&tval='.$id), true);
+                  $getdata = $getdata[0];
+                  if ($getdata['cat'] == 'i') {
+                    $itru = 'selected';
+                  } elseif ($getdata['cat'] == 'o') {
+                    $otru = 'selected';
+                  }
+                  //print_r($getdata[0]);
+                ?>
+                <script>console.log('<?= $getdata ?>')</script>
+                <tr id="<?= $id ?>" class="bg-success" style="--bs-bg-opacity: 45%;">
                 <form action="" method="POST">
                   <th scope="row">
-                    <input type="date" class="form-control" name="kode" value="" placeholder="TANGGAL" required>
+                    <input type="date" class="form-control" name="tgl" value="<?= $getdata['tgl'] ?>" placeholder="TANGGAL" required>
                   </th>
                   <td>
                     <select name="cat" class="form-control" id="cat" required>
-                        <option value="i">MASUK</option>
-                        <option value="o" selected>KELUAR</option>
+                        <option value="i" <?= $itru?> >MASUK</option>
+                        <option value="o" <?= $otru?> >KELUAR</option>
                     </select>
                   </td>
                   <td>
-                    <input type="number" class="form-control" name="vcat" value="" placeholder="JUMLAH (CONTOH : 2500)" required>  
+                    <input type="number" class="form-control" name="vcat" value="<?= $getdata['vcat'] ?>" placeholder="JUMLAH (CONTOH : 2500)" required>  
                   </td>
                   <td>
-                    <textarea name="ket" class="form-control" id="" cols="30" rows="5"></textarea>
+                    <textarea name="ket" class="form-control" id="" cols="30" rows="5"><?= $getdata['ket'] ?></textarea>
                   </td>
                   <td  class="text-center">
                     <button name="ubah" type="submit" class="btn btn-primary"> <i class="fa fa-check"></i> </button>
@@ -79,20 +93,24 @@ echo "</pre>";
                   </td>
                 </form>
                 </tr>
+                <?php
+                }
+                ?>
                 <!-- EOL EDIT -->
 
                 <!-- VIEW DATA -->
                 <?php
                 foreach ($datalist as $dl => $val) {
+                  $idtime = base64_encode($val['timestamp']);
                 ?>
-                <tr id="">
+                <tr id="<?= $idtime ?>">
                   <th scope="row"><?=  $val['tgl'] ?></th>
                   <td><?= $val['cat'] ?></td>
                   <td><?= $val['vcat'] ?></td>
                   <td><?= $val['ket'] ?></td>
                   <td  class="text-center">
-                    <form method="POST" action="<?= '#' ?>">
-                      <input type="hidden" name="idb" value="<?= '' ?>">
+                    <form method="POST" action="<?= '#'.$idtime ?>">
+                      <input type="hidden" name="idb" value="<?= $idtime ?>">
                       <button name="edit" type="submit" class="btn btn-success"> <i class="fa fa-pencil"></i> </button>
                     </form>
                   </td>
