@@ -64,9 +64,9 @@ echo "</pre>";
                   $getdata = json_decode(getFapi('http://localhost/cttx/api/select.php?tpar=timestamp&tval='.$id), true);
                   $getdata = $getdata[0];
                   if ($getdata['cat'] == 'i') {
-                    $itru = 'selected';
+                    $slc = ['selected', ''];
                   } elseif ($getdata['cat'] == 'o') {
-                    $otru = 'selected';
+                    $slc = ['', 'selected'];
                   }
                 ?>
                 <script>console.log('<?= $getdata ?>')</script>
@@ -78,8 +78,8 @@ echo "</pre>";
                   </th>
                   <td>
                     <select name="cat" class="form-control" id="cat" required>
-                        <option value="i" <?= $itru?> >MASUK</option>
-                        <option value="o" <?= $otru?> >KELUAR</option>
+                        <option value="i" <?= $slc[0] ?> >MASUK</option>
+                        <option value="o" <?= $slc[1] ?> >KELUAR</option>
                     </select>
                   </td>
                   <td>
@@ -118,7 +118,8 @@ echo "</pre>";
                     </form>
                   </td>
                   <td  class="text-center">
-                    <form onSubmit="return yakin('')" method="POST" action="">
+                    <form id="deldata" method="POST" action="#">
+                      <input type="hidden" name="vdelpar" value="<?= $idtime ?>">
                       <button name="del" type="submit" class="btn btn-danger"> <i class="fa fa-trash"></i> </button>
                     </form>
                   </td>
@@ -136,7 +137,8 @@ echo "</pre>";
         <div class="modal fade" id="new" tabindex="-1" aria-labelledby="new" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-              <form method="post" action="">
+              <form id="newdata" method="post" action="">
+                <input type="hidden" name="fg" value="1">
                 <div class="modal-header">
                   <h5 class="modal-title">CATET BANG</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -170,7 +172,7 @@ echo "</pre>";
           </div>
         </div>
         <!-- EOL ADD DATA -->
-        
+
 
     </div>
     <script src="./asets/js/bootstrap.bundle.min.js"></script>
@@ -193,6 +195,17 @@ echo "</pre>";
         });
 
         $(function() {
+            $('form#newdata').on('submit', function(e) {
+                $.post('./api/addin.php', $(this).serialize(), function (data) {
+                  console.log('edited kah?');
+                }).error(function() {
+                    console.log('error cok');
+                });
+                e.preventDefault();
+            });
+        });
+
+        $(function() {
             $('form#editdata').on('submit', function(e) {
                 $.post('./api/update.php', $(this).serialize(), function (data) {
                   console.log('edited kah?');
@@ -202,6 +215,20 @@ echo "</pre>";
                 e.preventDefault();
             });
         });
+
+        $(function() {
+            $('form#deldata').on('submit', function(e) {
+              if (yakin() == true) {
+                $.post('./api/deldat.php', $(this).serialize(), function (data) {
+                  console.log('edited kah?');
+                }).error(function() {
+                    console.log('error cok');
+                });
+                e.preventDefault();
+              }
+            });
+        });
+
     </script>
 
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

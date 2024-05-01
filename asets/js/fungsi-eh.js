@@ -1,6 +1,6 @@
 
-function yakin(nama) {
-   return confirm('YAKIN INGIN MENGHAPUS "' + nama + '" DARI TABEL ?');
+function yakin() {
+   return confirm('YAKIN INGIN MENGHAPUS DATA DARI TABEL ?');
 }
 
 function cancel() {

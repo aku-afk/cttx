@@ -33,4 +33,12 @@ function editData($gate, $vpar, $data) {
     return $res;
 }
 
+function delData($gate, $idpar) {
+    $idpar = base64_decode($idpar);
+    $sql = "DELETE FROM `trfx_backup`
+            WHERE `timestamp` = '$idpar'";
+    $res = $gate->query($sql);
+    return $res;
+}
+
 ?>
