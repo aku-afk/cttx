@@ -1,21 +1,23 @@
 <?php
 
+header('Content-Type: application/json; charset=utf-8');
+
+include '../_bakul.php';
+include '../_cfgx.php';
+
 $table_par = $_GET['tpar'];
 $table_val = $_GET['tval'];
 $table_val = base64_decode($table_val);
 
 if (empty($table_par) || empty($table_val)) {
+  $die = true;
   $out = [
-    'res' => 'null'
+    'res' => 'aneh'
   ];
   $out = json_encode($out, JSON_PRETTY_PRINT);
-  die(print_r($out));
+  print_r($out);
+ die();
 }
-
-header('Content-Type: application/json; charset=utf-8');
-
-include '../_bakul.php';
-include '../_cfgx.php';
 
 $sql = "SELECT *
         FROM `trfx_backup`
@@ -40,6 +42,5 @@ if (mysqli_num_rows($res) > 0) {
 }
 
 $out = json_encode($out, JSON_PRETTY_PRINT);
-
 
 print_r($out);

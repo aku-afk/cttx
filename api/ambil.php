@@ -5,13 +5,6 @@ header('Content-Type: application/json; charset=utf-8');
 include '../_bakul.php';
 include '../_cfgx.php';
 
-function inData($gate, $data) {
-        $sql = "INSERT INTO `trfx_backup` (`tgl`, `cat`, `val_cat`, `ket`)
-        VALUES ('".$data[0]."', '".$data[1]."', '".$data[2]."', '".$data[3]."');";
-        $res = $gate->query($sql);
-        return $res;
-}
-
 $fg = $_POST['fg'];
 
 if ($fg == '1') {

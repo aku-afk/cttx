@@ -18,7 +18,7 @@ echo "</pre>";
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DATA BARANG</title>
+    <title>CATET PERTIK</title>
     <link href="./asets/css/bootstrap.min.css" rel="stylesheet">
     <link href="./asets/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./asets/css/customan.css">
@@ -70,7 +70,7 @@ echo "</pre>";
                 <script>console.log('<?= $getdata ?>')</script>
                 <tr id="<?= $id ?>" class="bg-success" style="--bs-bg-opacity: 45%;">
                 <form id="editdata" action="#" method="POST">
-                  <input type="hidden" name="tparval" value="<>">
+                  <input type="hidden" name="tparval" value="<?= $id ?>">
                   <th scope="row">
                     <input type="date" class="form-control" name="tgl" value="<?= $getdata['tgl'] ?>" placeholder="TANGGAL" required>
                   </th>
@@ -106,9 +106,9 @@ echo "</pre>";
                 ?>
                 <tr id="<?= $idtime ?>">
                   <th scope="row"><?=  $val['tgl'] ?></th>
-                  <td><?= $val['cat'] ?></td>
-                  <td><?= $val['vcat'] ?></td>
-                  <td><?= $val['ket'] ?></td>
+                  <td><center><?= $val['cat'] ?></center></td>
+                  <td><pre><?= numRp($val['vcat']) ?></pre></td>
+                  <td><pre><?= $val['ket'] ?></pre></td>
                   <td  class="text-center">
                     <form method="POST" action="<?= '#'.$idtime ?>">
                       <input type="hidden" name="idb" value="<?= $idtime ?>">
